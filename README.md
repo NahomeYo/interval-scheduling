@@ -1,20 +1,25 @@
----
-title: "Interval Scheduling HTML Encoding"
-output: github_document
----
+# Interval Scheduling
 
-# HTML Encoding Map
+## Complexity
 
-The Interval Scheduling page is encoded as a single algorithm card with this structure:
+- Best: O(n log n)
+- Worst: O(n log n)
+- Avg: O(n log n)
+- Space: O(n)
 
-1. `\<title>` and the visible heading name the page "Interval Scheduling".
-2. The top action bar contains navigation controls and complexity stat boxes.
-3. `Problem Description` explains the goal of choosing a maximum-size set of compatible intervals.
-4. `Code` is displayed through the shared `codeBox` and sourced from `main.js`.
-5. `Algorithm Steps` is written as a `\<ul>` with consistent `\<li><p>...\</p></li>` markup.
-6. `Explanation` documents the finish-time greedy rule, the `O(n log n)` sort cost, and the `O(n)` result-space cost for this JavaScript version.
-7. `Example/Demo` is the final `exampleBox` output block.
+## Problem Description
 
-# Structural Notes
+Interval scheduling selects the largest possible set of mutually compatible intervals. Two intervals are compatible when one starts at or after the other finishes. This implementation uses the standard greedy rule: sort by finishing time and always take the next interval that finishes earliest among the remaining compatible choices.
 
-The explanation is specific to the implementation in this repository: it sorts a copied array of intervals, performs one scan, and returns a new list of selected intervals instead of mutating the original input for output purposes.
+## Algorithm Steps
+
+1. Sort the intervals by finishing time in ascending order.
+2. Select the first interval in that sorted order.
+3. Track the finish time of the most recently selected interval.
+4. Scan the remaining intervals from left to right.
+5. Whenever the current interval starts at or after the stored finish time, add it to the solution and update the stored finish time.
+6. Return the full list of selected intervals after the scan completes.
+
+## Explanation
+
+The greedy choice is correct because selecting the interval with the earliest finish time leaves as much room as possible for later intervals. After sorting, the algorithm makes a single linear pass and keeps every interval that remains compatible with the current schedule. Sorting dominates the runtime, so the total time complexity is `O(n log n)`. This JavaScript implementation returns a new list of selected intervals, so the extra space used for the result is `O(n)` in the worst case.
