@@ -97,4 +97,6 @@ The greedy choice is correct because selecting the interval with the earliest fi
 
 Once the intervals are sorted, the algorithm is straightforward. It keeps the first interval, stores its finish time, and then scans the remaining intervals from left to right. Whenever the next interval starts at or after the stored finish time, that interval is compatible with everything selected so far, so it is added to the result and its finish time becomes the new boundary.
 
+In JavaScript, the implementation uses `[...intervals]` to copy the original input before calling `sort()`, so the original array is not rearranged by the greedy step. The helper `formatIntervals()` then uses `map()` and `join()` to turn the interval list into a readable string for the demo output.
+
 Sorting dominates the runtime, so the total time complexity is `O(n log n)`. The scan itself is only `O(n)`. This JavaScript implementation returns a new list of selected intervals, so the extra space used for the result is `O(n)` in the worst case.
